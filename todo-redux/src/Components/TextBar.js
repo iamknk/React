@@ -13,12 +13,15 @@ class TextBar extends React.Component {
     return (
       <div className="ui action input">
         <form onSubmit={this.submitHelper}>
-          <input
-            value={this.state.term}
-            onChange={(e) => this.setState({ term: e.target.value })}
-            type="text"
-            placeholder="Add New Todo"
-          />
+          <div className="ui input">
+            <input
+              value={this.state.term}
+              onChange={(e) => this.setState({ term: e.target.value })}
+              type="text"
+              placeholder="Add New Todo"
+            />
+          </div>
+
           <button type="submit" className="ui button">
             Add
           </button>
