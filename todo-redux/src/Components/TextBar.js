@@ -11,8 +11,8 @@ class TextBar extends React.Component {
   };
   render() {
     return (
-      <div className="ui action input">
-        <form onSubmit={this.submitHelper}>
+      <form onSubmit={this.submitHelper}>
+        <div className="ui fluid action input">
           <div className="ui input">
             <input
               value={this.state.term}
@@ -25,8 +25,8 @@ class TextBar extends React.Component {
           <button type="submit" className="ui button">
             Add
           </button>
-        </form>
-      </div>
+        </div>
+      </form>
     );
   }
 }
