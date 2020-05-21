@@ -1,39 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import SeasonDisplay from "./SeasonDisplay";
 import Spinner from "./Spinner";
 import ErrorMessage from "./ErrorMessage";
+import useLocation from "./useLocation";
 
-class App extends React.Component {
-  state = {
-    latitude: null,
-    errorMessage: "",
-    locationAcessMessage: "Please Accept Location Access",
-  };
-  componentDidMount() {
-    window.navigator.geolocation.getCurrentPosition(
-      (position) => {
-        this.setState({ locationAcessMessage: "CHecking Your Location" });
-        this.setState({ latitude: position.coords.latitude });
-      },
-      (err) => {
-        this.setState({ errorMessage: err.message });
-      }
-    );
+const App = () => {
+  const [latitudeh, errorMessageh, locationAcessMessageh] = useLocation();
+  if (latitudeh && !errorMessageh) {
+    return <SeasonDisplay latitude={latitudeh} />;
   }
-  renderContent() {
-    if (this.state.latitude && !this.state.errorMessage) {
-      return <SeasonDisplay latitude={this.state.latitude} />;
-    }
-    if (!this.state.latitude && this.state.errorMessage) {
-      return <ErrorMessage errorMessage={this.state.errorMessage} />;
-    }
-    return <Spinner message={this.state.locationAcessMessage} />;
+  if (!latitudeh && errorMessageh) {
+    return <ErrorMessage errorMessage={errorMessageh} />;
   }
 
-  render() {
-    return <div className="border red">{this.renderContent()}</div>;
-  }
-}
+  return <Spinner message={locationAcessMessageh} />;
+};
 
 ReactDOM.render(<App />, document.querySelector("#root"));
